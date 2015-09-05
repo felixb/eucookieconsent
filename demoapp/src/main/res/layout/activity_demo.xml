@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:eucookieconsent="http://schemas.android.com/apk/de.ub0r.android.eucookieconsent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="de.ub0r.android.eucookieconsent">
+
+    <de.ub0r.android.eucookieconsent.EuCookieConsentView
+            android:id="@+id/eucookieconsent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            eucookieconsent:textMessage="Your custom eu cookie consent text."
+            eucookieconsent:textLearnMore="more info"
+            eucookieconsent:textGotIt="ok!"
+            eucookieconsent:urlLeanMore="https://www.google.com/search?q=eu+cookie+consent"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sample text..\nbla bla..\n\nrestart app after reset"
+            tools:ignore="HardcodedText"/>
+
+    <Button
+            android:id="@+id/reset_acknowledgement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="reset acknowledgment"
+            tools:ignore="HardcodedText"/>
+</LinearLayout>

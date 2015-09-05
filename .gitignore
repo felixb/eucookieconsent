@@ -1,0 +1,10 @@
+.idea
+.gradle
+gradlew*
+*.iml
+gradle
+build
+.bundle
+_site
+*.p12
+local.properties

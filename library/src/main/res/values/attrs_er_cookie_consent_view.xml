@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="EuCookieConsentView">
+        <attr name="textMessage" format="string"/>
+        <attr name="textGotIt" format="string"/>
+        <attr name="textLearnMore" format="string"/>
+        <attr name="urlLeanMore" format="string"/>
+    </declare-styleable>
+</resources>
