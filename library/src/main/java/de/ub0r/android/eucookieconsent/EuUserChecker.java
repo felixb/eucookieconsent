@@ -11,7 +11,7 @@ import android.text.TextUtils;
  */
 public class EuUserChecker {
 
-    static final String[] EU_PREFIXES = new String[]{
+    private static final String[] EU_PREFIXES = new String[]{
             "376",
             "43",
             "32",
@@ -52,7 +52,7 @@ public class EuUserChecker {
             "379",
     };
 
-    static final String[] EU_ISOS = new String[]{
+    private static final String[] EU_ISOS = new String[]{
             "BE",
             "BG",
             "CZ",

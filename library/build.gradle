@@ -42,7 +42,6 @@ afterEvaluate { project ->
                 parseText(new File(project.projectDir, 'src/main/AndroidManifest.xml').getText())
         def versionName = android_manifest.'@android:versionName'
         def package_name = android_manifest.'@package'
-        def artifact_id = repo.toLowerCase()
         project.version = versionName
         project.group = package_name
 
@@ -85,19 +84,18 @@ afterEvaluate { project ->
 }
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
