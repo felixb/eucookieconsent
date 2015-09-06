@@ -38,6 +38,7 @@ Customizing the view
 
 The view supports the following settings in code and xml:
 
+ * `hideOutsideEu` - show/hide view for users outside of EU. This requires android.permission.READ_PHONE_STATE.
  * `textMessage` - the main message
  * `textGotIt` - label of the acknowledge button
  * `textLearnMore` - label of the link to your privacy policy

@@ -5,5 +5,6 @@
         <attr name="textGotIt" format="string"/>
         <attr name="textLearnMore" format="string"/>
         <attr name="urlLeanMore" format="string"/>
+        <attr name="hideOutsideEu" format="boolean"/>
     </declare-styleable>
 </resources>

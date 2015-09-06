@@ -34,6 +34,8 @@ public class EuCookieConsentView extends FrameLayout {
 
     private Uri mLearnMoreUri;
 
+    private boolean mHideOutsideEu;
+
     public EuCookieConsentView(final Context context) {
         super(context);
         init(null, 0);
@@ -70,11 +72,24 @@ public class EuCookieConsentView extends FrameLayout {
 
     private void init(final AttributeSet attrs, final int defStyle) {
         if (isAcknowledged()) {
-            // skip everything if user clicked "got it" once.
+            // hide view and skip everything if user clicked "got it" once.
             setVisibility(GONE);
             return;
         }
 
+        // get styled attributes
+        final TypedArray a = getContext().obtainStyledAttributes(
+                attrs, R.styleable.EuCookieConsentView, defStyle, 0);
+        setHideOutsideEu(a.getBoolean(R.styleable.EuCookieConsentView_hideOutsideEu, true));
+
+        if (isHideOutsideEu() && new EuUserChecker(getContext()).isNotEuUser()) {
+            // hide view and skip everything if user comes from outside EU
+            setVisibility(GONE);
+            a.recycle();
+            return;
+        }
+
+        // inflate the view
         final LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.eu_cookie_consent_view, this);
@@ -89,15 +104,13 @@ public class EuCookieConsentView extends FrameLayout {
             }
         });
 
-        final TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.EuCookieConsentView, defStyle, 0);
         setMessageText(getStyledString(a, R.styleable.EuCookieConsentView_textMessage,
                 R.string.message));
         setGotItText(
                 getStyledString(a, R.styleable.EuCookieConsentView_textGotIt, R.string.got_it));
         setLearnMoreText(getStyledString(a, R.styleable.EuCookieConsentView_textLearnMore,
                 R.string.learn_more));
-        setLearnMoreUri(getStyledString(a, R.styleable.EuCookieConsentView_urlLeanMore, ""));
+        setLearnMoreUri(getStyledString(a, R.styleable.EuCookieConsentView_urlLeanMore, null));
         a.recycle();
     }
 
@@ -116,6 +129,14 @@ public class EuCookieConsentView extends FrameLayout {
     public void resetAcknowledged() {
         getContext().getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE).edit()
                 .remove(PREFS_ACKNOWLEDGED).apply();
+    }
+
+    public boolean isHideOutsideEu() {
+        return mHideOutsideEu;
+    }
+
+    public void setHideOutsideEu(final boolean hideOutsideEu) {
+        mHideOutsideEu = hideOutsideEu;
     }
 
     @SuppressWarnings("unused")
