@@ -26,11 +26,11 @@ public class EuCookieConsentView extends FrameLayout {
 
     private TextView mMessageView;
 
-    private CharSequence mMessageText;
+    private String mMessageText;
 
     private TextView mGotItView;
 
-    private CharSequence mLearnMoreText;
+    private String mLearnMoreText;
 
     private Uri mLearnMoreUri;
 
@@ -52,7 +52,7 @@ public class EuCookieConsentView extends FrameLayout {
         init(attrs, defStyle);
     }
 
-    private CharSequence getStyledString(final TypedArray a, final int styleableId,
+    private String getStyledString(final TypedArray a, final int styleableId,
             final int defaultId) {
         if (a.hasValue(styleableId)) {
             return a.getString(styleableId);
@@ -61,8 +61,8 @@ public class EuCookieConsentView extends FrameLayout {
         }
     }
 
-    private CharSequence getStyledString(final TypedArray a, final int styleableId,
-            final CharSequence defString) {
+    private String getStyledString(final TypedArray a, final int styleableId,
+            final String defString) {
         if (a.hasValue(styleableId)) {
             return a.getString(styleableId);
         } else {
@@ -140,11 +140,11 @@ public class EuCookieConsentView extends FrameLayout {
     }
 
     @SuppressWarnings("unused")
-    public CharSequence getMessageText() {
+    public String getMessageText() {
         return mMessageText;
     }
 
-    public void setMessageText(final CharSequence text) {
+    public void setMessageText(final String text) {
         mMessageText = text;
         updateMessageText();
     }
@@ -159,7 +159,7 @@ public class EuCookieConsentView extends FrameLayout {
         return mGotItView.getText();
     }
 
-    public void setGotItText(final CharSequence text) {
+    public void setGotItText(final String text) {
         mGotItView.setText(text);
     }
 
@@ -169,11 +169,11 @@ public class EuCookieConsentView extends FrameLayout {
     }
 
     @SuppressWarnings("unused")
-    public CharSequence getLearnMoreText() {
+    public String getLearnMoreText() {
         return mLearnMoreText;
     }
 
-    public void setLearnMoreText(final CharSequence text) {
+    public void setLearnMoreText(final String text) {
         mLearnMoreText = text;
     }
 
@@ -187,11 +187,11 @@ public class EuCookieConsentView extends FrameLayout {
         return mLearnMoreUri;
     }
 
-    public void setLearnMoreUri(final CharSequence uri) {
+    public void setLearnMoreUri(final String uri) {
         if (uri == null) {
             mLearnMoreUri = null;
         } else {
-            mLearnMoreUri = Uri.parse(uri.toString());
+            mLearnMoreUri = Uri.parse(uri);
         }
         updateMessageText();
     }
@@ -202,12 +202,14 @@ public class EuCookieConsentView extends FrameLayout {
     }
 
     private void updateMessageText() {
+        CharSequence text;
         if (mLearnMoreUri == null || TextUtils.isEmpty(mLearnMoreText)) {
-            mMessageView.setText(mMessageText);
+            text = String.format(mMessageText, "").trim();
         } else {
-            mMessageView.setText(Html.fromHtml(mMessageText
-                    + " <a href=\"" + mLearnMoreUri.toString() + "\">"
-                    + mLearnMoreText + "</a>"));
+            String link = "<a href=\"" + mLearnMoreUri.toString() + "\">" + mLearnMoreText + "</a>";
+            String formatted = String.format(mMessageText, link);
+            text = Html.fromHtml(formatted);
         }
+        mMessageView.setText(text);
     }
 }

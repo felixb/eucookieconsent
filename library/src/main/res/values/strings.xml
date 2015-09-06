@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="message">We use device identifiers to personalise content and ads. We also share such identifiers and other information from your device with our advertising partners.</string>
+    <string name="message">We use device identifiers to personalise content and ads. We also share such identifiers and other information from your device with our advertising partners. %s</string>
     <string name="learn_more">Learn more</string>
     <string name="got_it">Got it</string>
 </resources>
