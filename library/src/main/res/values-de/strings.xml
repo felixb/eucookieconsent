@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message">Wir nutzen geräteidentifizierende Merkmale um Inhalte und Werbung zu personalisieren. Wir teilen solche Merkmale und andere Informationen über Ihr Gerät auch mit unseren Werbepartnern. %s</string>
+    <string name="learn_more">Mehr erfahren</string>
+    <string name="got_it">Verstanden</string>
+</resources>
