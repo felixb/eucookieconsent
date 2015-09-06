@@ -20,6 +20,18 @@ import android.widget.TextView;
  */
 public class EuCookieConsentView extends FrameLayout {
 
+    /**
+     * A Listener called when user acknowledged.
+     */
+    public interface AcknowledgeListener {
+
+        /**
+         * Called when user acknowledged. Default implementation sets the view's visibility to GONE.
+         * You can add some fancy transition animation here.
+         */
+        void onAcknowledge(final EuCookieConsentView view);
+    }
+
     private static final String PREFS_FILENAME = "eu_cookie_consent";
 
     private static final String PREFS_ACKNOWLEDGED = "acknowledged";
@@ -35,6 +47,8 @@ public class EuCookieConsentView extends FrameLayout {
     private Uri mLearnMoreUri;
 
     private boolean mHideOutsideEu;
+
+    private AcknowledgeListener mAcknowledgeListener;
 
     public EuCookieConsentView(final Context context) {
         super(context);
@@ -100,7 +114,11 @@ public class EuCookieConsentView extends FrameLayout {
             @Override
             public void onClick(final View view) {
                 setAcknowledged();
-                setVisibility(GONE);
+                if (mAcknowledgeListener == null) {
+                    setVisibility(GONE);
+                } else {
+                    mAcknowledgeListener.onAcknowledge(EuCookieConsentView.this);
+                }
             }
         });
 
@@ -199,6 +217,16 @@ public class EuCookieConsentView extends FrameLayout {
     @SuppressWarnings("unused")
     public void setLearnMoreUri(final int resId) {
         setLearnMoreUri(getContext().getString(resId));
+    }
+
+    @SuppressWarnings("unused")
+    public AcknowledgeListener getAcknowledgeListener() {
+        return mAcknowledgeListener;
+    }
+
+    @SuppressWarnings("unused")
+    public void setAcknowledgeListener(final AcknowledgeListener acknowledgeListener) {
+        mAcknowledgeListener = acknowledgeListener;
     }
 
     private void updateMessageText() {

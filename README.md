@@ -44,6 +44,8 @@ The view supports the following settings in code and xml:
  * `textLearnMore` - label of the link to your privacy policy
  * `urlLeanMore` - url to your privacy policy
 
+Set a `AcknowledgeListener` to implement some fancy transition animation or do other stuff when the user acknowledges the view.
+
 Contribution
 ------------
 
