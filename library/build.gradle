@@ -40,20 +40,19 @@ afterEvaluate { project ->
 
         def android_manifest = new XmlParser(false, false).
                 parseText(new File(project.projectDir, 'src/main/AndroidManifest.xml').getText())
-        def versionName = android_manifest.'@android:versionName'
         def package_name = android_manifest.'@package'
-        project.version = versionName
+        project.version = android.defaultConfig.versionName
         project.group = package_name
 
         configuration = configurations.archives
         repositories.mavenDeployer {
             // beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-            repository(url: "file:///tmp/ub0rlib/")
+            repository(url: "file:///home/flx/dev/android/mvn-repo/")
 
             pom.project {
                 name repo
-                packaging 'jar'
+                packaging 'aar'
                 description repoInfo.description
                 url repoInfo.html_url
 
@@ -91,7 +90,7 @@ android {
         minSdkVersion 9
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "0.1.0"
     }
     buildTypes {
         release {
