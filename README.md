@@ -23,7 +23,7 @@ Add the repository and the library to your build.gradle
     }
 
     dependencies {
-        compile 'de.ub0r.android:eucookieconsent:+'
+        compile 'de.ub0r.android:eucookieconsent:+@aar'
     }
 
 Then, add the following xml snippet to your layout xml:
