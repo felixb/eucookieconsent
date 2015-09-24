@@ -96,7 +96,7 @@ public class EuCookieConsentView extends FrameLayout {
                 attrs, R.styleable.EuCookieConsentView, defStyle, 0);
         setHideOutsideEu(a.getBoolean(R.styleable.EuCookieConsentView_hideOutsideEu, true));
 
-        if (isHideOutsideEu() && new EuUserChecker(getContext()).isNotEuUser()) {
+        if (!isInEditMode() && isHideOutsideEu() && new EuUserChecker(getContext()).isNotEuUser()) {
             // hide view and skip everything if user comes from outside EU
             setVisibility(GONE);
             a.recycle();
