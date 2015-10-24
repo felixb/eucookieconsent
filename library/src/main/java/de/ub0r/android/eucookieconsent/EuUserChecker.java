@@ -3,6 +3,7 @@ package de.ub0r.android.eucookieconsent;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 /**
  * Checks if an user is an EU user. This requires android.permission.READ_PHONE_STATE.
@@ -10,6 +11,8 @@ import android.text.TextUtils;
  * @author flx
  */
 public class EuUserChecker {
+
+    private static final String TAG = "EuUserChecker";
 
     private static final String[] EU_PREFIXES = new String[]{
             "376",
@@ -97,18 +100,23 @@ public class EuUserChecker {
             return false;
         }
 
-        String telephoneNumber = telephonyManager.getLine1Number();
-        if (!TextUtils.isEmpty(telephoneNumber)) {
-            if (telephoneNumber.startsWith("+")) {
-                return !isEuPrefixed(telephoneNumber.substring(1));
-            } else if (telephoneNumber.startsWith("00")) {
-                return !isEuPrefixed(telephoneNumber.substring(2));
-            }
-        }
-
         String countryIso = telephonyManager.getNetworkCountryIso();
         if (!TextUtils.isEmpty(countryIso)) {
             return !isEuIso(countryIso);
+        }
+
+        try {
+            String telephoneNumber = telephonyManager.getLine1Number();
+            if (!TextUtils.isEmpty(telephoneNumber)) {
+                if (telephoneNumber.startsWith("+")) {
+                    return !isEuPrefixed(telephoneNumber.substring(1));
+                } else if (telephoneNumber.startsWith("00")) {
+                    return !isEuPrefixed(telephoneNumber.substring(2));
+                }
+            }
+        } catch (SecurityException e) {
+            // ignore if permissions are denied
+            Log.w(TAG, "permission denied to check user's phone number, skip detection for EU user", e);
         }
 
         // we just don't know.
